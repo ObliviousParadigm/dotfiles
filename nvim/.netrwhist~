@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/home/paradigm/.config/nvim'
+let g:netrw_dirhist_6='/home/paradigm/.config'
+let g:netrw_dirhist_5='/home/paradigm/Documents/Interests/Selenium'
+let g:netrw_dirhist_4='/home/paradigm/Documents/Interests'
+let g:netrw_dirhist_3='/home/paradigm/Documents/Interests/Selenium'
+let g:netrw_dirhist_2='/home/paradigm/Documents/Interests/Python/Random_Projects'
+let g:netrw_dirhist_1='/home/paradigm/Documents/Interests/Python'
