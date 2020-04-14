@@ -9,6 +9,7 @@
 " Some good references
 " YT: DistroTube, Ben Awad
 " Medium: https://medium.com/better-programming/setting-up-neovim-for-web-development-in-2020-d800de3efacd
+" https://vim-bootstrap.com/
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
