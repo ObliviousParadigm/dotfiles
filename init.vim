@@ -1,3 +1,15 @@
+" Custom Configuration
+"             _____  Adarsh Shetty
+"      /\    / ____| ObliviousParadigm
+"     /  \  | (___  
+"    / /\ \  \___ \ 
+"   / ____ \ ____) |
+"  /_/    \_\_____/ 
+" 
+" Some good references
+" YT: DistroTube, Ben Awad
+" Medium: https://medium.com/better-programming/setting-up-neovim-for-web-development-in-2020-d800de3efacd
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -50,6 +62,7 @@ let g:deoplete#enable_at_startup = 1
 
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'ryanoasis/vim-devicons'
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-surround'
 Plugin 'bling/vim-airline'
@@ -58,6 +71,9 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'mattn/emmet-vim'
 Plugin 'Yggdroot/indentLine'
 Plugin 'vim-airline/vim-airline-themes'
+" Fuzzy File Searching
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plugin 'junegunn/fzf.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -90,6 +106,8 @@ set backup
 set backupdir=$HOME/.nvim/tmp
 " tell vim where to put swap files
 set dir=$HOME/.nvim/tmp
+" Changing tab size
+set tabstop=4
 
 " Configuring NERDTree git plugin
 let g:NERDTreeIndicatorMapCustom = {
@@ -104,6 +122,53 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Unknown"   : "?"
     \ }
 
+" Configuring NERDTree
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeIgnore = []
+let g:NERDTreeStatusline = ''
+" Automatically close nvim if NERDTree is the only thing left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+
+" Configuring the Integrated Terminal
+" Open new split panes to right and below
+set splitright
+set splitbelow
+" Turn terminal to Normal Mode with Escape
+tnoremap <Esc> <C-\><C-n>
+" Start terminal in Insert Mode
+au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+" Open terminal with C-n
+function! OpenTerminal()
+	split term://fish
+	resize 10
+endfunction
+nnoremap <C-n> :call OpenTerminal()<CR>
+
+" Switching between panels
+" Use M-hjkl to move between split/vsplit panels
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+
+" Switching between tabs
+nnoremap <C-Left> :tabprevious<CR>
+nnoremap <C-Right> :tabnext<CR>
+
+" Configuring Fuzzy finder
+nnoremap <C-p> :FZF<CR>
+let g:fzf_action = {
+	\ 'ctrl-t': 'tab split',
+	\ 'ctrl-s': 'split',
+	\ 'ctrl-v': 'vsplit'
+	\}
+
 " True color support
 "Credit joshdick
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
@@ -111,7 +176,7 @@ let g:NERDTreeIndicatorMapCustom = {
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
 " if (empty($TMUX))
 "   if (has("nvim"))
-"   "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
 "   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 "   endif
   "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
@@ -124,7 +189,7 @@ let g:NERDTreeIndicatorMapCustom = {
 
 " IndentLine {{
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-let g:indentLine_showFirstIndentLevel = 1
+" let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 0
 " }}
 
