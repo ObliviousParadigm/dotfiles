@@ -75,6 +75,10 @@ Plugin 'vim-airline/vim-airline-themes'
 " Fuzzy File Searching
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
+" Indent line guides
+Plugin 'nathanaelkane/vim-indent-guides'
+" Prettier
+Plugin 'prettier/vim-prettier', { 'do': 'yarn install' }
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -107,8 +111,9 @@ set backup
 set backupdir=$HOME/.nvim/tmp
 " tell vim where to put swap files
 set dir=$HOME/.nvim/tmp
-" Changing tab size
-set tabstop=4
+" Setting indents that consist of 4 space characters but are entered with tab
+" key
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 
 " Configuring NERDTree git plugin
 let g:NERDTreeIndicatorMapCustom = {
@@ -162,6 +167,9 @@ nnoremap <A-l> <C-w>l
 nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
 
+" Configuring the indent guides
+let g:indent_guides_enable_on_vim_startup = 1
+
 " Configuring Fuzzy finder
 nnoremap <C-p> :FZF<CR>
 let g:fzf_action = {
@@ -193,6 +201,12 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 " let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 0
 " }}
+
+" Autorun Prettier
+" when running at every change you may want to disable quickfix
+let g:prettier#quickfix_enabled = 0
+
+autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
 syntax on
 set termguicolors
